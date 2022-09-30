@@ -1,9 +1,9 @@
 {
     "description": "Makes a single trade, either waiting for the price to go above a certain price before selling or below a certain price before buying.",
+    "compatablity": ["evm", "binance"],
     "configs": [
         {
             "name": "binanceAuth",
-            "label": "Binance Auth",
             "compatability": ["binance"],
             "textUnderName": "Enter your binance API Key and API Secret.",
             "type": "binanceAuth"
@@ -17,7 +17,6 @@
         },
         {
             "name": "privateWalletKey",
-            "label": "Private Wallet Key",
             "compatability": ["evm"],
             "textUnderName": "Enter the private key of the wallet to trade with.",
             "type": "evmPrivateWalletKey"
@@ -31,21 +30,18 @@
         },
         {
             "name": "tokenPool",
-            "label": "Token Pool",
             "compatability": ["evm"],
             "textUnderName": "Enter the contract address for the token you wish to trade and the currency that the token is pooled with (the quote currency- usually this is the Native Token which will resolve to ETH on Ethereum, BNB for Binance Smart chain).",
             "type": "evmTokenPool"
         },
         {
             "name": "triggerPrice",
-            "label": "Trigger Price",
             "compatability": ["evm", "binance"],
             "textUnderName": "Enter the price trigger. This can be a percentage- append the % sign- which will be calculated when the script is running, or a price value. By default this is in the comparator (quote) currency. Prepend a $ sign to force fiat denomination. Examples: 0.5%, $0.5%, 0.000045, $2100",
             "type": "triggerPrice"
         },
         {
             "name": "order",
-            "label": "Order",
             "compatability": ["evm", "binance"],
             "textUnderName": "Specify the order to make.",
             "type": "order"
