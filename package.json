@@ -1,0 +1,20 @@
+{
+  "name": "shell-node-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "compatability": [
+    "evm",
+    "binance"
+  ],
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Neauangle",
+  "license": "ISC",
+  "dependencies": {
+    "botiq": "^0.1.10"
+  }
+}
