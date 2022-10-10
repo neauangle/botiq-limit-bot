@@ -1,50 +1,103 @@
 {
-    "description": "Makes a single trade, either waiting for the price to go above a certain price before selling or below a certain price before buying.",
-    "compatablity": ["evm", "binance"],
-    "configs": [
-        {
+    "aggregateInputConfigs": [{
+            "name": "exchangeType",
+            "type": "radioSet",
+            "isVisibilityKeyWarden": true,
+            "parameterSets": [
+                {"value": "binance"},
+                {"value": "evm", "label": "Defi"}
+            ]
+
+        },{
             "name": "binanceAuth",
-            "compatability": ["binance"],
+            "visibilityKeys": ["binance"],
             "textUnderName": "Enter your binance API Key and API Secret.",
-            "type": "binanceAuth"
+            "type": "inputs",
+            "parameterSets": [{
+                "type": "text",
+                "placeholder": "API Key",
+                "label": "API Key:"
+            }, {
+                "type": "text",
+                "placeholder": "API Secret",
+                "label": "API Secret:"
+            }]
+        },{
+            "name": "binanceTokenPool",
+            "label": "Trading Pair",
+            "visibilityKeys": ["binance"],
+            "textUnderName": "Enter the base (e.g. ETH) and quote (e.g. USDT) currency symbols for the pair you wish to trade.",
+            "type": "inputs",
+            "parameterSets": [{
+                "type": "text",
+                "placeholder": "Base",
+                "label": "Base:"
+            }, {
+                "type": "text",
+                "placeholder": "Quote",
+                "label": "Quote:"
+            }]
         },
+        
+        
+        
         {
             "name": "jsonRpcEndpoint",
-            "label": "JSON RPC Endpoint to Access Blockchain",
-            "compatability": ["evm"],
-            "textUnderName": "To communicate with a blockchain, you need an endpoint. For this bot you need a JSON RPC endoint URL with the access token embedded. You can get one for free at ankr.com. The rate limit controls how fast messages can be sent through this endpoint (around 2 per second for the free plan).",
-            "type": "jsonRpcUrl"
-        },
-        {
+            "visibilityKeys": ["evm"],
+            "textUnderName": "To communicate with a blockchain, you need an endpoint. For this bot you need a JSON RPC endoint URL with the access token embedded (<a href=\"https://www.ankr.com/rpc/\">Ankr</a> provides free community endpoint URLs, one of which I've used here as a default).",
+            "type": "inputs",
+            "parameterSets": [{
+                "type": "url",
+                "placeholder": "URL"
+            }, {
+                "type": "number",
+                "placeholder": "Rate Limit Per Second", 
+                "attributeInjection": "min=\"1\" max=\"10000\""
+            }]
+        }, {
             "name": "privateWalletKey",
-            "compatability": ["evm"],
+            "visibilityKeys": ["evm"],
             "textUnderName": "Enter the private key of the wallet to trade with.",
-            "type": "evmPrivateWalletKey"
-        },
-        {
-            "name": "tokenPool",
-            "label": "Trading Pair",
-            "compatability": ["binance"],
-            "textUnderName": "Enter the base and quote currencies for the pair you wish to trade.",
-            "type": "binanceTokenPool"
-        },
-        {
-            "name": "tokenPool",
-            "compatability": ["evm"],
-            "textUnderName": "Enter the contract address for the token you wish to trade and the currency that the token is pooled with (the quote currency- usually this is the Native Token which will resolve to ETH on Ethereum, BNB for Binance Smart chain).",
-            "type": "evmTokenPool"
-        },
-        {
+            "type": "inputs",
+            "parameterSets": [{
+                "type": "text",
+                "placeholder": "Private Key",
+                "regex": "/^[a-fA-F0-9]{64}$/"
+            }]
+        }, {
+            "name": "evmTokenPool",
+            "label": "Token Pool",
+            "visibilityKeys": ["evm"],
+            "textUnderName": "Enter the contract address for the token you wish to trade and the currency that the token is pooled with (the quote currency). This can be \"Native Token\" which will resolve to ETH on Ethereum, BNB for Binance Smart chain, etc.).",
+            "type": "inputs",
+            "parameterSets": [{
+                "type": "text",
+                "placeholder": "Token (Base):",
+                "label": "Token:",
+                "regex": "^0x[a-fA-F0-9]{40}$"
+            }, {
+                "type": "text",
+                "placeholder": "Comparator (Quote):",
+                "label": "Comparator:",
+                "regex": "^(?:0x[a-fA-F0-9]{40})|(?:[Nn][Aa][Tt][Ii][Vv][Ee]\\s[Tt][Oo][Kk][Ee][Nn])$"
+            }]
+        }, {
             "name": "triggerPrice",
-            "compatability": ["evm", "binance"],
             "textUnderName": "Enter the price trigger. This can be a percentage- append the % sign- which will be calculated when the script is running, or a price value. By default this is in the comparator (quote) currency. Prepend a $ sign to force fiat denomination. Examples: 0.5%, $0.5%, 0.000045, $2100",
-            "type": "triggerPrice"
-        },
-        {
-            "name": "order",
-            "compatability": ["evm", "binance"],
-            "textUnderName": "Specify the order to make.",
-            "type": "order"
+            "type": "inputs",
+            "parameterSets": [{
+                "type": "text",
+                "placeholder": "Trigger Price"
+            }]
+        }, {
+            "name": "orderType",
+            "isVisibilityKeyWarden": true,
+            "textUnderName": "Specify the type of order to make.",
+            "type": "radioSet",
+            "parameterSets": [
+                {"value": "buy"},
+                {"value": "sell"}
+            ]
         }
     ]
 }
