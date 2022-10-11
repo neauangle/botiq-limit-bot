@@ -43,6 +43,7 @@
         
         {
             "name": "jsonRpcEndpoint",
+            "label": "JSON RPC Endpoint",
             "visibilityRequisites": {"exchange": ["evm"]},
             "textUnderName": "To communicate with a blockchain, you need an endpoint. For this bot you need a JSON RPC endoint URL with the access token embedded (<a href=\"https://www.ankr.com/rpc/\">Ankr</a> provides free community endpoint URLs, one of which I've used here as a default).",
             "type": "inputs",
@@ -52,7 +53,10 @@
             }, {
                 "type": "number",
                 "placeholder": "Rate Limit Per Second", 
-                "attributeInjection": "min=\"1\" max=\"10000\""
+                "attributes": {
+                    "min": 1,
+                    "max": 10000
+                }
             }]
         }, {
             "name": "privateWalletKey",
@@ -62,7 +66,7 @@
             "parameterSets": [{
                 "type": "password",
                 "placeholder": "Private Key",
-                "regex": "/^[a-fA-F0-9]{64}$/"
+                "pattern": "^[a-fA-F0-9]{64}$"
             }]
         }, {
             "name": "evmTokenPool",
@@ -74,16 +78,28 @@
                 "type": "text",
                 "placeholder": "Token (Base):",
                 "label": "Token:",
-                "regex": "^0x[a-fA-F0-9]{40}$"
+                "pattern": "^0x[a-fA-F0-9]{40}$"
             }, {
                 "type": "text",
                 "placeholder": "Comparator (Quote):",
                 "label": "Comparator:",
-                "regex": "^(?:0x[a-fA-F0-9]{40})|(?:[Nn][Aa][Tt][Ii][Vv][Ee]\\s[Tt][Oo][Kk][Ee][Nn])$"
+                "pattern": "^(?:0x[a-fA-F0-9]{40})|(?:[Nn][Aa][Tt][Ii][Vv][Ee]\\s[Tt][Oo][Kk][Ee][Nn])$"
             }]
         }, {
+            "name": "evmExchange",
+            "label": "Exchange",
+            "textUnderName": "Select the exchange to swap through. Note that some exchanges in the dropdown will be irrelevant for the blockchain your endpoint points to.",
+            "type": "dropdown",
+            "parameterSets": [
+                {"value": "uniswapV2"},
+                {"value": "pancakeSwapV2"},
+                {"value": "spookySwap"},
+                {"value": "pangolin"},
+                {"value": "joe"}
+            ]
+        }, {
             "name": "triggerPrice",
-            "textUnderName": "Enter the price trigger. This can be a percentage- append the % sign- which will be calculated when the script is running, or a price value. By default this is in the comparator (quote) currency. Prepend a $ sign to force fiat denomination. Examples: 0.5%, $0.5%, 0.000045, $2100",
+            "textUnderName": "Enter the price trigger. This can be a percentage- append the % sign- which will be calculated when the script is running, or a price value. By default this is in the comparator (quote) currency. Prepend a $ sign to force fiat denomination. Examples: 0.5%, $0.5%, 0.000045, $2100.",
             "type": "inputs",
             "parameterSets": [{
                 "type": "text",
