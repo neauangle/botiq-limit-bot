@@ -1,14 +1,9 @@
-*ffmpeg.exe
-*ffprobe.exe
-testdata/
-private_tests/
 cache/
 user-configs.json
-
-*JMnedict.xml
-*kanjidic2.xml
-*kanjidic2.xml
-*JMdict_e
+user-config.json
+bin/
+dist/
+build-tools/
 
 # Logs
 logs

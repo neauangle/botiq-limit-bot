@@ -1,0 +1,14 @@
+{
+    "binanceTokenPool": {
+        "token": "ETH",
+        "comparator": "USDT"
+    },
+    "jsonRpcEndpoint": {
+        "url": "https://rpc.ankr.com/eth",
+        "rateLimitPerSecond": "2"
+    },
+    "evmTokenPool": {
+        "token": "",
+        "comparator": "Native Token"
+    }
+}

@@ -1,150 +1,143 @@
 {
-    "aggregateInputConfigs": [{
-            "name": "exchangeType",
+    "aggregateInputConfigs": {
+        "exchangeType": {
             "type": "radioSet",
             "visibilityWardenOf": "exchange",
-            "parameterSets": [
-                {"value": "binance"},
-                {"value": "evm", "label": "Defi"}
-            ]
-
-        },{
-            "name": "binanceAuth",
+            "parameterSets": {
+                "binance": {},
+                "evm": {"label": "Defi"}
+            }
+        },
+        
+        "binanceAuth": {
             "visibilityRequisites": {"exchange": ["binance"]},
             "textUnderName": "Enter your binance API Key and API Secret (for more info see <a href=\"https://www.binance.com/en-AU/support/faq/360002502072\">here</a>).",
             "type": "inputs",
-            "parameterSets": [{
-                "type": "password",
-                "placeholder": "API Key",
-                "label": "API Key:"
-            }, {
-                "type": "password",
-                "placeholder": "API Secret",
-                "label": "API Secret:"
-            }]
-        },{
-            "name": "binanceTokenPool",
+            "parameterSets": {
+                "apiKey": {"type": "password", "placeholder": "API Key", "label": "API Key:"},
+                "apiSecret": {"type": "password", "placeholder": "API Secret", "label": "API Secret:"}
+            }
+       
+        },
+        
+        "binanceTokenPool": {
             "label": "Trading Pair",
             "visibilityRequisites": {"exchange": ["binance"]},
             "textUnderName": "Enter the token/base (e.g. ETH) and comparator/quote (e.g. USDT) currency symbols for the pair you wish to trade.",
             "type": "inputs",
-            "parameterSets": [{
-                "type": "text",
-                "placeholder": "Base (Token)",
-                "label": "Base:"
-            }, {
-                "type": "text",
-                "placeholder": "Quote (Comparator)",
-                "label": "Quote:"
-            }]
+            "parameterSets": {
+                "token": {"type": "text", "placeholder": "Base (Token)", "label": "Base:"},
+                "comparator": {"type": "text", "placeholder": "Quote (Comparator)", "label": "Quote:"}
+            }
         },
-        
-        
-        
-        {
-            "name": "jsonRpcEndpoint",
+
+        "jsonRpcEndpoint": {
             "label": "JSON RPC Endpoint",
             "visibilityRequisites": {"exchange": ["evm"]},
             "textUnderName": "To communicate with a blockchain, you need an endpoint. For this bot you need a JSON RPC endoint URL with the access token embedded (<a href=\"https://www.ankr.com/rpc/\">Ankr</a> provides free community endpoint URLs, one of which I've used here as a default).",
             "type": "inputs",
-            "parameterSets": [{
-                "type": "url",
-                "placeholder": "URL"
-            }, {
-                "type": "number",
-                "placeholder": "Rate Limit Per Second", 
-                "attributes": {
-                    "min": 1,
-                    "max": 10000
-                }
-            }]
-        }, {
-            "name": "privateWalletKey",
+            "parameterSets": {
+                "url": {"type": "url", "placeholder": "URL"},
+                "rateLimitPerSecond": {"type": "number", "placeholder": "Rate Limit Per Second", "attributes": {"min": 1, "max": 10000}}
+            }
+        }, 
+        
+        "privateWalletKey": {
             "visibilityRequisites": {"exchange": ["evm"]},
             "textUnderName": "Enter the private key of the wallet to trade with.",
             "type": "inputs",
-            "parameterSets": [{
+            "parameterSet": {
                 "type": "password",
                 "placeholder": "Private Key",
                 "pattern": "^[a-fA-F0-9]{64}$"
-            }]
-        }, {
-            "name": "evmTokenPool",
+            }
+        }, 
+        
+        "evmTokenPool": {
             "label": "Token Pool",
             "visibilityRequisites": {"exchange": ["evm"]},
             "textUnderName": "Enter the contract address for the token you wish to trade and the currency that the token is pooled with (the quote currency). This can be \"Native Token\" which will resolve to ETH on Ethereum, BNB for Binance Smart chain, etc.).",
             "type": "inputs",
-            "parameterSets": [{
-                "type": "text",
-                "placeholder": "Token (Base):",
-                "label": "Token:",
-                "pattern": "^0x[a-fA-F0-9]{40}$"
-            }, {
-                "type": "text",
-                "placeholder": "Comparator (Quote):",
-                "label": "Comparator:",
-                "pattern": "^(?:0x[a-fA-F0-9]{40})|(?:[Nn][Aa][Tt][Ii][Vv][Ee]\\s[Tt][Oo][Kk][Ee][Nn])$"
-            }]
-        }, {
-            "name": "evmExchange",
+            "parameterSets": {
+                "token": {
+                    "type": "text",
+                    "placeholder": "Token (Base):",
+                    "label": "Token:",
+                    "pattern": "^0x[a-fA-F0-9]{40}$"
+                },
+                "comparator": {
+                    "type": "text",
+                    "placeholder": "Comparator (Quote):",
+                    "label": "Comparator:",
+                    "pattern": "^(0x[a-fA-F0-9]{40})|([Nn][Aa][Tt][Ii][Vv][Ee]\\s[Tt][Oo][Kk][Ee][Nn])$"
+                }
+            }
+        }, 
+        
+        "evmExchange": {
             "label": "Exchange",
             "textUnderName": "Select the exchange to swap through. Note that some exchanges in the dropdown will be irrelevant for the blockchain your endpoint points to.",
             "type": "dropdown",
-            "parameterSets": [
-                {"value": "uniswapV2"},
-                {"value": "pancakeSwapV2"},
-                {"value": "spookySwap"},
-                {"value": "pangolin"},
-                {"value": "joe"}
-            ]
-        }, {
-            "name": "triggerPrice",
+            "parameterSets": {
+                "uniswapV2": {},
+                "pancakeSwapV2": {},
+                "spookySwap": {},
+                "pangolin": {},
+                "joe": {}
+            }
+        }, 
+        
+        "triggerPrice": {
             "textUnderName": "Enter the price trigger. This can be a percentage- append the % sign- which will be calculated when the script is running, or a price value. By default this is in the comparator (quote) currency. Prepend a $ sign to force fiat denomination. Examples: 0.5%, $0.5%, 0.000045, $2100.",
             "type": "inputs",
-            "parameterSets": [{
+            "parameterSet": {
                 "type": "text",
                 "placeholder": "Trigger Price"
-            }]
-        }, {
-            "name": "orderAction",
+            }
+        }, 
+        
+        "orderAction": {
             "visibilityWardenOf": "action",
             "textUnderName": "Specify the type of order to make.",
             "type": "radioSet",
-            "parameterSets": [
-                {"value": "buy"},
-                {"value": "sell"}
-            ]
-        }, {
-            "name": "amountOfComparatorToSpend",
+            "parameterSets": {
+                "buy": {},
+                "sell": {}
+            }
+        }, 
+        
+        "amountOfComparatorToSpend": {
             "label": "Amount to Spend",
             "textUnderName": "Enter the amount of comparator (quote) to spend for this buy. This can be given as a percentage, in which case that percentage of your balance will be used. It can also be given as a negative number to specify how much you want <i>left</i> after the buy.",
             "visibilityRequisites": {"action": ["buy"]},
             "type": "inputs",
-            "parameterSets": [{
+            "parameterSet": {
                 "type": "text",
                 "placeholder": "Quantity"
-            }]
-        }, {
-            "name": "amountOfTokenToSell",
+            }
+        }, 
+        
+        "amountOfTokenToSell": {
             "label": "Amount to Sell",
             "textUnderName": "Enter the amount of token (base) to sell. This can be given as a percentage, in which case that percentage of your balance will be sold. It can also be given as a negative number to specify how much you want <i>left</i> after the sell.",
             "visibilityRequisites": {"action": ["sell"]},
             "type": "inputs",
-            "parameterSets": [{
+            "parameterSet": {
                 "type": "text",
                 "placeholder": "Quantity"
-            }]
-        }, {
-            "name": "slippage",
+            }
+        }, 
+        
+        "slippage": {
             "label": "Slippage Percent",
             "visibilityRequisites": {"exchange": ["evm"]},
             "textUnderName": "The slippage determines how much the amount you would receive can change against your favour after the order has been submitted but before it is processed on chain.",
             "optional": true,
             "type": "inputs",
-            "parameterSets": [{
+            "parameterSet": {
                 "type": "number",
                 "placeholder": "Slippage %"
-            }]
+            }
         }
-    ]
+    }
 }
