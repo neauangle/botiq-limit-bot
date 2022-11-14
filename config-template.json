@@ -117,6 +117,11 @@
 		},
 		"evmExchange": {
 			"label": "Exchange",
+            "visibilityRequisites": {
+				"exchange": [
+					"evm"
+				]
+			},
 			"textUnderLabel": "Select the exchange to swap through. Note that some exchanges in the dropdown will be irrelevant for the blockchain your endpoint points to.",
 			"type": "dropdown",
 			"parameterSets": {
